@@ -4,6 +4,10 @@ import router from './router';
 import store from './store';
 import './registerServiceWorker';
 
+import * as api from './api';
+
+(window as any).api = api;
+
 Vue.config.productionTip = false;
 
 new Vue({
