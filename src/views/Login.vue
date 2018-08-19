@@ -41,9 +41,8 @@ export default class Login extends Vue {
     disp = this.$store
       .dispatch('logIn', {
         email: this.email,
-        password: this.password
+        password: this.password,
       })
-      .then(value => {})
       .catch((err: Error) => this.errors.push(err.message));
   }
 }

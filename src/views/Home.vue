@@ -6,23 +6,26 @@
         <li v-for="(val, key) in errors" :key="key" class="error">{{val}}</li>
       </ul>
       <ul>
-        <li v-for="(message) in messagesByDate" :key="message.timestamp.toString()">
-          <strong>at {{message.timestamp}}</strong>
-          {{message.content}}
-          <button @click="onRemoveMessage(message)">Remove</button>
+        <li class="show-message"
+          v-for="(message) in messagesByDate"
+          :key="message.timestamp.toString()"
+        >
+          <show-message class="show-message-cmp" :message="message"></show-message>
         </li>
     </ul>
     </div>
 
     <message-input
       v-model="messageContent"
-      @submit="onMessageSubmit"></message-input>
+      @submit="onMessageSubmit"
+    ></message-input>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import MessageInput from '@/components/MessageInput.vue'; // @ is an alias to /src
+import ShowMessage from '@/components/ShowMessage.vue';
 
 import { State, Mutation } from 'vuex-class';
 import { Message, User } from '@/store';
@@ -30,6 +33,7 @@ import { Message, User } from '@/store';
 @Component({
   components: {
     MessageInput,
+    ShowMessage,
   },
 })
 export default class Home extends Vue {
@@ -77,5 +81,12 @@ export default class Home extends Vue {
 <style lang="scss" scoped>
 .error {
   color: rgb(255, 0, 0);
+}
+
+li.show-message > .show-message-cmp{
+  background-color: white;
+}
+li.show-message:nth-child(odd) > .show-message-cmp{
+  background-color: whitesmoke;
 }
 </style>
