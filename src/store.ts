@@ -3,9 +3,10 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 export interface User {
+  id?: number;
   username: string;
-  email: string;
-  createdAt: Date;
+  email?: string;
+  dateJoined?: Date;
 }
 export interface Message {
   content: string;
