@@ -5,17 +5,8 @@ const path = require('path');
 
 module.exports = {
   devServer : {
-    proxy : [ {
-      context : [ '/docs/', '/api/v0/', '/static/' ],
-      target : backendUrl,
-      ws : true,
-      changeOrigin : true
-    } ],
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
 
-    historyApiFallback : false
+    historyApiFallback : true
   },
   configureWebpack(config) {
     config.output.publicPath = 'http://localhost:8080/';
