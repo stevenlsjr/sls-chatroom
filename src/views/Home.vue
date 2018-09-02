@@ -18,6 +18,7 @@
     <message-input
       v-model="messageContent"
       @submit="onMessageSubmit"
+      :user="user"
     ></message-input>
   </div>
 </template>
@@ -28,7 +29,7 @@ import MessageInput from '@/components/MessageInput.vue'; // @ is an alias to /s
 import ShowMessage from '@/components/ShowMessage.vue';
 
 import { State, Mutation } from 'vuex-class';
-import { Message, User } from '@/store';
+import { Message, User } from '@/types';
 
 @Component({
   components: {
@@ -38,6 +39,7 @@ import { Message, User } from '@/store';
 })
 export default class Home extends Vue {
   @State messages!: Message[];
+  @State user!: User;
 
   @Mutation pushMessage!: (message: Message) => void;
   @Mutation filterMessages!: (predicate: (message: Message) => boolean) => void;
@@ -49,7 +51,7 @@ export default class Home extends Vue {
     if (this.messageContent === '') {
       this.errors = ['Input is empty'];
     } else {
-      this.pushMessage({ content: this.messageContent });
+      this.pushMessage({ content: this.messageContent, user: this.user});
       this.messageContent = '';
       this.errors = [];
     }
