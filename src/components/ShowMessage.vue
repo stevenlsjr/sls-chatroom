@@ -17,7 +17,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
-import { Message } from '@/store';
+import { Message } from '@/types';
 
 import * as moment from 'moment';
 
@@ -48,7 +48,6 @@ export default class ShowMessage extends Vue {
   border-radius: 5px;
   margin: 0.25rem;
 }
-
 
 * {
   padding: 0.5rem;

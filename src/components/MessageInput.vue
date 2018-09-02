@@ -2,6 +2,7 @@
     <section class="message-input">
         <form @submit.prevent="handleFormSubmit" class="chat-form">
           <div class="field">
+            <aside v-if="user">Hello, "{{user.username}}"</aside>
             <label for="message-content">Your message</label>
             <input type="text" class="text" id="message-content" :value="value" @input="onInput">
           </div>
@@ -17,11 +18,15 @@
 <script lang="ts">
 import Vue from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
+import { User } from '@/types';
 
 @Component({})
 export default class MessageInput extends Vue {
   @Prop({ default: '' })
   value!: string;
+
+  @Prop({default: ()=>({username: 'unknown'})})
+  user!: User
 
   onInput(event: any) {
     this.$emit('input', event.target.value);
