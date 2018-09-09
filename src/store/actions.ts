@@ -25,6 +25,7 @@ export function createActions(client: AxiosInstance): vuex.ActionTree<AppState, 
       const user  = new ApiUser(userResponse.data);
 
       context.commit('setUser', user);
+      context.commit('setToken', token);
       return userResponse.data;
     },
     logOut(context) {

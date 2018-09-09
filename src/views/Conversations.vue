@@ -1,6 +1,14 @@
 <template>
   <div>
-    hello
+    <h1>Current Discussions</h1>
+    <div class="content">
+      <ul v-if="conversations.count > 0">
+        <li v-for="(c, index) in conversations.results" :key="index">
+          Convo: {{c.title}}
+        </li>
+      </ul>
+      <p v-else>No Conversations</p>
+    </div>
   </div>
 </template>
 
@@ -17,15 +25,26 @@ export default class Conversations extends mixins(AxiosMixin) {
   @State user!: User;
   @State apiToken!: string;
 
+  conversations: any = {};
+
   mounted() {
-    this.$client
-      .get('/src/')
-      .then(v => {
-        console.log('hello');
-      })
-      .catch(e => {
-        console.log('error');
-      });
+    this.updateConversations().catch(e => {
+      this.conversations = [];
+      console.log(e);
+    });
+  }
+
+  async updateConversations() {
+    let res;
+    const headers = {
+      Authorization: `Token ${this.apiToken}`
+    };
+
+    res = await this.$client.get('/conversations', {
+      headers
+    });
+
+    this.conversations = res.data;
   }
 }
 </script>
